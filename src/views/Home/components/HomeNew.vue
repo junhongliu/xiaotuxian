@@ -1,7 +1,7 @@
 <script setup>
 import HomePanel from './HomePanel.vue'
 import { findNewAPI } from '@/apis/home'
-import { onMounted, ref } from 'vue'
+import { ref } from 'vue'
 
 // 获取数据
 const newList = ref([])
@@ -11,9 +11,7 @@ const getNewList = async () => {
   newList.value = res.result
 }
 
-onMounted(() => {
-  getNewList()
-})
+getNewList()
 </script>
 
 <template>
