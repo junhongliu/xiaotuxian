@@ -16,7 +16,7 @@ export const useCartStore = defineStore(
       const res = await finNewCartListAPI()
       cartList.value = res.result
     }
-    // 2. 定义action - addCart
+    // 2. 定义加入action - addCart
     const addCart = async goods => {
       const { skuId, count } = goods
       if (isLogin.value) {
@@ -31,7 +31,7 @@ export const useCartStore = defineStore(
         const item = cartList.value.find(item => goods.skuId === item.skuId)
         if (item) {
           // 找到了
-          item.count++
+          item.count += count
         } else {
           // 没找到
           cartList.value.push(goods)
@@ -51,6 +51,11 @@ export const useCartStore = defineStore(
         const idx = cartList.value.findIndex(item => skuId === item.skuId)
         cartList.value.splice(idx, 1)
       }
+    }
+
+    // 退出登录时清除购物车
+    const clearCart = () => {
+      cartList.value = []
     }
 
     // 单选功能
@@ -86,10 +91,12 @@ export const useCartStore = defineStore(
       isAll,
       selectedCount,
       selectedPrice,
+      clearCart,
       addCart,
       delCart,
       singleCheck,
-      allCheck
+      allCheck,
+      updateNewList
     }
   },
   {
